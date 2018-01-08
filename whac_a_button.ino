@@ -52,7 +52,7 @@ void loop(){
 //This function will flash all buttons and wait for a button press to start the game.
 //Speed will be set depending on which button is pressed
 boolean keyPress(){
-digitalWrite(9, HIGH);
+    digitalWrite(9, HIGH);
     digitalWrite(10, HIGH);
     digitalWrite(11, HIGH);
     digitalWrite(12, HIGH);
@@ -81,17 +81,14 @@ int newLED; //This is the the LED that we're goign to light next
 randomSeed(analogRead(A0)); //Random Seed
 delay(1000); 
 
-
-
 while(playing == 1){ 
-
-playing=0; //Assumed guilty until proven innocent 
+      playing=0; 
       byte randomLed = random(9,14); // pick a random LED
 while(newLED == randomLed){ //make sure it's not the same as the last one
         randomLed = random(9,14); 
       }
       newLED = randomLed; 
-Serial.println(newLED); //Serial debug stuff
+//Serial.println(newLED); //Serial debug stuff
 int newButton = getButton(newLED); //The getButton function returns the button number corresponding to the LED that's on.
 
 digitalWrite(newLED, HIGH); //Light up the random LED.
@@ -100,6 +97,7 @@ for(int t=0; t<gameDelay; t++){ //Game cycles delay
   hitButton = digitalRead(newButton); //Grab the button status
   if(hitButton==0){
     playing=1;
+    break;
     } //if button was pressed
   delay(1);
 }
@@ -117,9 +115,6 @@ tm1637.display(1,hundreds);
 tm1637.display(0,thousands);
 
 } 
-
-
-  
 }
 
 //This functio returns the corresponding button pin for a given LED pin.
